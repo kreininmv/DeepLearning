@@ -1,0 +1,165 @@
+\section{Matrix calculus}
+
+\subsection{Problem № 1} Find the gradient $\nabla f(x)$, if $f(X) = det \left( X^{-1} + A \right)$
+
+\underline{\textbf{Solution:}}
+
+\begin{equation*}
+    df(X) = det \left(X^{-1} + A \right) \langle (X^{-1} + A)^{-T}, d(X^{-1} + A) \rangle = det \left(X^{-1} + A \right) \langle X^{T} + A^{-T}, dX^{-1} \rangle =
+\end{equation*}
+\begin{equation*}
+    = det \left(X^{-1} + A \right) \langle (X + A^{-1})^T, -X^{-1}dX X^{-1} \rangle 
+\end{equation*}
+\begin{equation*}
+    = -det \left(X^{-1} + A \right) \langle X^{-T}(X + A^{-1})^TX^{-T}, dX \rangle
+\end{equation*}
+
+\underline{\textbf{Answer:}} $\nabla_X f(x) = -det \left(X^{-1} + A \right) X^{-T}(X + A^{-1})^TX^{-T}$
+
+\subsection{Problem № 2} 
+Find $\nabla f(x)$ and $\nabla^2 f(x)$ for:
+\begin{itemize}
+    \item $f: \mathbb{R}_{++} \xrightarrow{} \mathbb{R}$, $f(t) = ||(A+tI_n)^{-1}b||$, where $A \in \mathbb{S}_{+}^n, b \in \mathbb{R}^n$
+    \item $f: \mathbb{R}^{n} \xrightarrow{} \mathbb{R}$, $f(x) = \frac{1}{2}||xx^T-A||_F^2$, where $A \in \mathbb{S}^n$
+\end{itemize}
+\underline{\textbf{Solution:}}
+
+$C = (A+tI_n)^{-1}$, $\frac{dC} = CCdt$
+\begin{equation*}
+    df(t) = d(||Cb||) = \frac{1}{2||Cb||} d\langle Cb, Cb \rangle = \frac{1}{||Cb||} \langle CCb, Cb \rangle dt
+\end{equation*}
+
+\begin{equation*}
+    d^2f(t) = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle\right)dt^'dt - \frac{1}{2||Cb||^{3}} \langle CCb, Cb \rangle d \langle Cb, Cb \rangle dt^' = 
+\end{equation*}
+\begin{equation*}
+     = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle \right)dt^'dt - \frac{1}{||Cb||^{3}} (\langle CCb, Cb \rangle)^2dt^'dt
+\end{equation*}
+
+Let's solve the next one:
+\begin{equation*}
+    df = d \langle xx^T - A, xx^T - A \rangle = \langle dxx^T + xdx^T, xx^T - A\rangle = 
+\end{equation*}
+\begin{equation*}
+    = tr(x^T(xx^T - A)^Tdx) + tr(dx^T(xx^T-A)^Tx) = 
+    2 \cdot \langle (xx^T -A)x, dx\rangle
+\end{equation*}
+\begin{equation*}
+    d^2f = 2 \cdot \langle (xx^T -A)dx_2 + 2\cdot dx_2 xx^T, dx_1\rangle = \langle 6xx^T-2A, dx_1dx_2^T \rangle
+\end{equation*}
+
+
+\underline{\textbf{Answer:}} 
+\begin{itemize}
+    \item $\nabla f(t) =\frac{\langle CCb, Cb \rangle}{||Cb||}$, $\nabla^2f(t) = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle \right) - \frac{1}{||Cb||^3 }(\langle CCb, Cb \rangle)^2$, where $C = (A+tI_n)^{-1}$
+    \item $\nabla f = 2(xx^T -A)x$, $\nabla^2f = 6xx^T-2A$
+\end{itemize}
+
+
+\subsection{Problem № 3} 
+Find $\nabla_b L$ and $\nabla_A L$, if we know $\nabla_x L$
+
+
+\underline{\textbf{Solution:}} 
+$Ax = b$, $x = A^{-1}b$, $\frac{\partial x}{\partial b} = A^{-1}$
+
+\begin{equation*}
+    \nabla_b L = \frac{\partial L}{\partial x} \frac{\partial x}{\partial b} = \nabla_x L A^{-1}
+\end{equation*}
+
+\begin{equation*}
+    dL = \frac{\partial L}{\partial x} -A^{-1}dA A^{-1}b = - (A^{-T}\frac{\partial L}{\partial x}^T b^TA{-T})
+\end{equation*}
+
+\begin{equation*}
+    \nabla_A L = \frac{\partial L}{\partial x} \frac{\partial x}{\partial A} = - A^{-T} \nabla_x L b^TA^{-T}
+\end{equation*}
+
+\underline{\textbf{Answer:}} $ \nabla_A L = - A^{-T} \nabla_x L b^TA^{-T}$, $\nabla_b L = \nabla_x L A^{-1}$
+
+\subsection{Problem № 4} 
+For each of the following functions, find all the stationarity points and specify the parameter values
+at which they exist.
+\begin{itemize}
+    \item $f: E \xrightarrow{} \mathbb{R}$, $f(x) = \langle a, x \rangle - ln(1 - \langle b, x \rangle)$, 
+    
+    where $a, b \in \mathbb{R}^n$, $a, b \not= 0$, $E = \{ x \in \mathbb{R}^n | \langle b, x \rangle < 1 \}$
+    \item $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, $f(x) = \langle c, x \rangle \exp(-\langle Ax, x \rangle)$, 
+    where $c \in \mathbb{R}^n$, $c \not= 0$, $A \in \mathbb{S}^n$
+    \item $f: \mathbb{S}_{++}^n \xrightarrow{} \mathbb{R}$, $f(X) = \langle X^{-1}, I_n \rangle -\langle A, X \rangle$, 
+    where $A \in \mathbb{S}^n$
+\end{itemize}
+
+\underline{\textbf{Solution:}} 
+$f: E \xrightarrow{} \mathbb{R}$, $f(x) = \langle a, x \rangle - ln(1 - \langle b, x \rangle)$
+
+\begin{equation*}
+    \nabla f = a + \frac{b}{1-\langle b, x \rangle} = 0
+\end{equation*}
+
+We can easily add two equations:
+\begin{equation*}
+    \langle a, a \rangle + \frac{\langle a, b \rangle }{1-\langle b, x \rangle} = 0
+\end{equation*}
+\begin{equation*}
+    \langle a, b \rangle + \frac{\langle b, b \rangle }{1-\langle b, x \rangle} = 0
+\end{equation*}
+\begin{equation*}
+    \langle b, x \rangle = \frac{\langle a, b\rangle}{\langle a, a \rangle } + 1
+\end{equation*}
+
+\begin{equation*}
+    \langle b, x \rangle = \frac{\langle b, b\rangle}{\langle a, b \rangle } + 1
+\end{equation*}
+And here from that we get:
+\begin{equation*}
+    \frac{\langle b, b\rangle}{\langle a, b \rangle } = \frac{\langle a, b\rangle}{\langle a, a \rangle }
+\end{equation*}
+And from that we get conditions on a and b:
+\begin{equation*}
+    \langle a, b \rangle^2 = \langle a , a\rangle \langle b, b \rangle
+\end{equation*}
+
+$f: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, $f(x) = \langle c, x \rangle \exp(-\langle Ax, x \rangle)$, where $c \in \mathbb{R}^n$, $c \not= 0$, $A \in \mathbb{S}^n$
+
+\begin{equation*}
+    \nabla f = c \exp(-\langle Ax, x\rangle) - 2\langle c, x \rangle \exp(-\langle Ax, x\rangle) x^TA = 0
+\end{equation*}
+Multiply it by x and divide on $exp(-\langle Ax, x\rangle)$
+\begin{equation*}
+ \langle c, x \rangle (1-2\langle xA, x\rangle) = 0
+\end{equation*}
+There is two ways, x -- orthogonal c and $\langle c, x \rangle$ or $\langle Ax, x \rangle = \frac{1}{2}$
+
+
+$f: \mathbb{S}_{++}^n \xrightarrow{} \mathbb{R}$, $f(X) = \langle X^{-1}, I_n \rangle -\langle A, X \rangle$, where $A \in \mathbb{S}^n$
+\begin{equation*}
+        \nabla f(X) = \langle -X^{-1}dXX^{-1}, I \rangle - \langle A, dX \rangle = -tr(X^{-T}dX^{T}X^{-T}) - tr(A^TdX) = 
+\end{equation*}
+\begin{equation*}
+    = -\langle X^{-1}X^{-1} + A, dX \rangle
+\end{equation*}
+From that we get that: $XX = A^{-1}$
+
+\underline{\textbf{Answer:}} 
+\begin{itemize}
+    \item $\langle a, b \rangle^2 = \langle a , a\rangle \langle b, b \rangle$, it means that $a = b\cdot t$, where $t \in \mathbb{R}$
+    \item $\langle c, x \rangle = 0$, x is orthogonal c, or $\langle Ax, x \rangle = \frac{1}{2}$
+    \item $XX = -A^{-1}$
+\end{itemize}
+
+\subsection{Problem № 5} 
+X -- symmetric matrix and $X = Q^T \Lambda Q$, we know $\nabla_{Q} f$, $\nabla_{\Lambda}f$. Find $\nabla_X f = $ ?
+
+\underline{\textbf{Solution:}} 
+%$\Lambda = Q^TXQ$, $\frac{\partial \Lambda}{\partial X} = Q^TQ = I$, $\frac{\partial Q}{\partial X}$
+%\begin{equation*}
+%    \frac{\partial f}{\partial X} = \frac{\partial f}%{\partial \Lambda} \frac{\partial \Lambda}{\partial X} = \nabla_{\Lambda}f I = \nabla_{\Lambda} f 
+%\end{equation*}
+\begin{equation*}
+    df(X) = d f(Q^T\Lambda Q) = \nabla_{Q}f d_Q (Q^T\Lambda Q) + \nabla_{\Lambda}f d_{\Lambda}(Q^T\Lambda Q) = 
+\end{equation*}
+\begin{equation*}
+    =\nabla_Q f Q^T\Lambda dQ +  \nabla_Q f dQ^T\Lambda Q + Q\nabla_{\Lambda}fQ^T d\Lambda 
+\end{equation*}
+\underline{\textbf{Answer:}} $\nabla_X f = Q\nabla_{\Lambda}fQ^T + \nabla_Q f Q^T\Lambda + \Lambda Q \nabla_Q f$
