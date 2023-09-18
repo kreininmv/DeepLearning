@@ -24,16 +24,16 @@ Find $\nabla f(x)$ and $\nabla^2 f(x)$ for:
 \end{itemize}
 \underline{\textbf{Solution:}}
 
-$C = (A+tI_n)^{-1}$, $\frac{dC} = CCdt$
+$C = (A+tI_n)^{-1}$, $\frac{dC}{dt} = -CCdt$
 \begin{equation*}
-    df(t) = d(||Cb||) = \frac{1}{2||Cb||} d\langle Cb, Cb \rangle = \frac{1}{||Cb||} \langle CCb, Cb \rangle dt
+    df(t) = d(||Cb||) = \frac{1}{2||Cb||} d\langle Cb, Cb \rangle = \frac{-1}{||Cb||} \langle CCb, Cb \rangle dt
 \end{equation*}
 
 \begin{equation*}
     d^2f(t) = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle\right)dt^'dt - \frac{1}{2||Cb||^{3}} \langle CCb, Cb \rangle d \langle Cb, Cb \rangle dt^' = 
 \end{equation*}
 \begin{equation*}
-     = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle \right)dt^'dt - \frac{1}{||Cb||^{3}} (\langle CCb, Cb \rangle)^2dt^'dt
+     = \frac{3}{||Cb||}\langle CCb, CCb\rangle dt^'dt - \frac{1}{||Cb||^{3}} (\langle CCb, Cb \rangle)^2dt^'dt
 \end{equation*}
 
 Let's solve the next one:
@@ -51,7 +51,7 @@ Let's solve the next one:
 
 \underline{\textbf{Answer:}} 
 \begin{itemize}
-    \item $\nabla f(t) =\frac{\langle CCb, Cb \rangle}{||Cb||}$, $\nabla^2f(t) = \frac{1}{||Cb||}\left(\langle CCb, CCb\rangle + 2\langle CCCb, Cb\rangle \right) - \frac{1}{||Cb||^3 }(\langle CCb, Cb \rangle)^2$, where $C = (A+tI_n)^{-1}$
+    \item $\nabla f(t) =-\frac{\langle CCb, Cb \rangle}{||Cb||}$, $\nabla^2f(t) = \frac{3}{||Cb||}\langle CCb, CCb\rangle - \frac{1}{||Cb||^3 }(\langle CCb, Cb \rangle)^2$, where $C = (A+tI_n)^{-1}$
     \item $\nabla f = 2(xx^T -A)x$, $\nabla^2f = 6xx^T-2A$
 \end{itemize}
 
@@ -61,10 +61,10 @@ Find $\nabla_b L$ and $\nabla_A L$, if we know $\nabla_x L$
 
 
 \underline{\textbf{Solution:}} 
-$Ax = b$, $x = A^{-1}b$, $\frac{\partial x}{\partial b} = A^{-1}$
+$Ax = b$, $x = A^{-1}b$, $\frac{\partial x}{\partial b} = A^{-T}$
 
 \begin{equation*}
-    \nabla_b L = \frac{\partial L}{\partial x} \frac{\partial x}{\partial b} = \nabla_x L A^{-1}
+    \nabla_b L = \frac{\partial L}{\partial x} \frac{\partial x}{\partial b} = A^{-T}\nabla_x L 
 \end{equation*}
 
 \begin{equation*}
@@ -75,7 +75,7 @@ $Ax = b$, $x = A^{-1}b$, $\frac{\partial x}{\partial b} = A^{-1}$
     \nabla_A L = \frac{\partial L}{\partial x} \frac{\partial x}{\partial A} = - A^{-T} \nabla_x L b^TA^{-T}
 \end{equation*}
 
-\underline{\textbf{Answer:}} $ \nabla_A L = - A^{-T} \nabla_x L b^TA^{-T}$, $\nabla_b L = \nabla_x L A^{-1}$
+\underline{\textbf{Answer:}} $ \nabla_A L = - A^{-T} \nabla_x L b^TA^{-T}$, $\nabla_b L = A^{-T}\nabla_x L$
 
 \subsection{Problem № 4} 
 For each of the following functions, find all the stationarity points and specify the parameter values
@@ -125,11 +125,18 @@ $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, $f(x) = \langle c, x \rangle \exp(-
 \begin{equation*}
     \nabla f = c \exp(-\langle Ax, x\rangle) - 2\langle c, x \rangle \exp(-\langle Ax, x\rangle) x^TA = 0
 \end{equation*}
-Multiply it by x and divide on $exp(-\langle Ax, x\rangle)$
+
 \begin{equation*}
- \langle c, x \rangle (1-2\langle xA, x\rangle) = 0
+    c - 2\langle c, x \rangle x^TA = 
 \end{equation*}
-There is two ways, x -- orthogonal c and $\langle c, x \rangle$ or $\langle Ax, x \rangle = \frac{1}{2}$
+Multiply it on c:
+\begin{equation*}
+    \langle cA^{-1}, c \rangle = 2\langle c, x \rangle^2 
+\end{equation*}
+And from that we get:
+\begin{equation*}
+    x = \frac{cA^{-1}}{2\langle c, x\rangle} = \frac{\pm cA^{-1}}{\sqrt{2\langle cA^{-1}, c \rangle} }
+\end{equation*}
 
 
 $f: \mathbb{S}_{++}^n \xrightarrow{} \mathbb{R}$, $f(X) = \langle X^{-1}, I_n \rangle -\langle A, X \rangle$, where $A \in \mathbb{S}^n$
@@ -139,13 +146,16 @@ $f: \mathbb{S}_{++}^n \xrightarrow{} \mathbb{R}$, $f(X) = \langle X^{-1}, I_n \r
 \begin{equation*}
     = -\langle X^{-1}X^{-1} + A, dX \rangle
 \end{equation*}
-From that we get that: $XX = A^{-1}$
+From that we get that: $XX = (-A)^{-1}$, $X = \sqrt{(-A)^{-1}}$
+
+In course of optimization I had the same problem and I have already found answer in the internet: $X = Q^T \Lambda^{-0.5} Q$, where $A = -Q^T \Lambda Q$, we could prove it by putting X into equation and show that it's true.
+
 
 \underline{\textbf{Answer:}} 
 \begin{itemize}
-    \item $\langle a, b \rangle^2 = \langle a , a\rangle \langle b, b \rangle$, it means that $a = b\cdot t$, where $t \in \mathbb{R}$
-    \item $\langle c, x \rangle = 0$, x is orthogonal c, or $\langle Ax, x \rangle = \frac{1}{2}$
-    \item $XX = -A^{-1}$
+    \item $\langle a, b \rangle^2 = \langle a , a\rangle \langle b, b, x $$ \rangle$, it means that $a = b\cdot t$, where $t \in \mathbb{R}$ and x such that: $\langle b, x \rangle = \frac{\langle b, b \rangle}{\langle a, b \rangle} + 1$
+    \item $x  = \frac{\pm cA^{-1}}{\sqrt{2\langle cA^{-1}, c \rangle} }$
+    \item $X = Q^T \Lambda^{-0.5} Q$
 \end{itemize}
 
 \subsection{Problem № 5} 
@@ -157,9 +167,28 @@ X -- symmetric matrix and $X = Q^T \Lambda Q$, we know $\nabla_{Q} f$, $\nabla_{
 %    \frac{\partial f}{\partial X} = \frac{\partial f}%{\partial \Lambda} \frac{\partial \Lambda}{\partial X} = \nabla_{\Lambda}f I = \nabla_{\Lambda} f 
 %\end{equation*}
 \begin{equation*}
-    df(X) = d f(Q^T\Lambda Q) = \nabla_{Q}f d_Q (Q^T\Lambda Q) + \nabla_{\Lambda}f d_{\Lambda}(Q^T\Lambda Q) = 
+    df(X) = d f(Q^T\Lambda Q) = \langle \nabla_{Q}, f d_Q (Q^T\Lambda Q) \rangle + \langle \nabla_{\Lambda}f, d_{\Lambda}(Q^T\Lambda Q) \rangle = 
 \end{equation*}
 \begin{equation*}
-    =\nabla_Q f Q^T\Lambda dQ +  \nabla_Q f dQ^T\Lambda Q + Q\nabla_{\Lambda}fQ^T d\Lambda 
+    = \langle \nabla_Q f,  Q^T\Lambda dQ \rangle + \langle \nabla_Q f, dQ^T\Lambda Q \rangle + \langle \nabla_{\Lambda}f,Q^T d\Lambda Q \rangle 
 \end{equation*}
-\underline{\textbf{Answer:}} $\nabla_X f = Q\nabla_{\Lambda}fQ^T + \nabla_Q f Q^T\Lambda + \Lambda Q \nabla_Q f$
+\begin{equation*}
+    = \langle \Lambda Q \nabla_Q f, dQ \rangle + \langle \Lambda Q \nabla_Q f^T, dQ \rangle + \langle Q \nabla_{\Lambda} f Q^T, d \Lambda \rangle = \langle \nabla_X f, dX \rangle =
+\end{equation*}
+\begin{equation*}
+    = \langle \nabla_X f, dQ^T \Lambda Q + Q^T d\Lambda Q + Q^T \Lambda dQ \rangle =
+\end{equation*}
+\begin{equation*}
+ = \langle Q \nabla_X f Q^T, d \Lambda \rangle + \langle \Lambda Q \nabla_X f^T, dQ \rangle  + \langle \Lambda Q \nabla_X f, dQ \rangle
+\end{equation*}
+From that we get two equations:
+$$
+Q \nabla_X f Q^T = Q \nabla_{\Lambda} f Q^T
+$$
+and
+$$
+\Lambda Q \nabla_Q f + \lambda Q \nabla_Q f^T = \Lambda Q \nabla_X f + \Lambda Q \nabla_X f^T
+$$
+and it's trivial that: $\nabla_X f = \nabla_{\Lambda} f$
+
+\underline{\textbf{Answer:}} $\nabla_X f = \nabla_{\Lambda} f$
