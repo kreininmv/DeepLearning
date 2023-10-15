@@ -5,16 +5,16 @@
 \underline{\textbf{Solution:}}
 
 \begin{equation*}
-    df(X) = det \left(X^{-1} + A \right) \langle (X^{-1} + A)^{-T}, d(X^{-1} + A) \rangle = det \left(X^{-1} + A \right) \langle X^{T} + A^{-T}, dX^{-1} \rangle =
+    df(X) = det \left(X^{-1} + A \right) \langle (X^{-1} + A)^{-T}, d(X^{-1} + A) \rangle = det \left(X^{-1} + A \right) \langle (X^{-1} + A)^{-T}, dX^{-1} \rangle =
 \end{equation*}
 \begin{equation*}
-    = det \left(X^{-1} + A \right) \langle (X + A^{-1})^T, -X^{-1}dX X^{-1} \rangle 
+    = det \left(X^{-1} + A \right) \langle (X^{-1} + A)^{-T}, -X^{-1}dX X^{-1} \rangle 
 \end{equation*}
 \begin{equation*}
-    = -det \left(X^{-1} + A \right) \langle X^{-T}(X + A^{-1})^TX^{-T}, dX \rangle
+    = -det \left(X^{-1} + A \right) \langle X^{-T}(X^{-1} + A)^{-T}X^{-T}, dX \rangle
 \end{equation*}
 
-\underline{\textbf{Answer:}} $\nabla_X f(x) = -det \left(X^{-1} + A \right) X^{-T}(X + A^{-1})^TX^{-T}$
+\underline{\textbf{Answer:}} $\nabla_X f(x) = -det \left(X^{-1} + A \right) X^{-T}(X^{-1} + A)^{-T}X^{-T}$
 
 \subsection{Problem № 2} 
 Find $\nabla f(x)$ and $\nabla^2 f(x)$ for:
@@ -45,14 +45,14 @@ Let's solve the next one:
     2 \cdot \langle (xx^T -A)x, dx\rangle
 \end{equation*}
 \begin{equation*}
-    d^2f = 2 \cdot \langle (xx^T -A)dx_2 + 2\cdot dx_2 xx^T, dx_1\rangle = \langle 6xx^T-2A, dx_1dx_2^T \rangle
+    d^2f = 2 \cdot \langle (xx^T -A)dx_2 + 2\cdot dx_2 xx^T, dx_1\rangle = \langle 2x^TxI + 4xx^T -2A, dx_1dx_2^T \rangle
 \end{equation*}
 
 
 \underline{\textbf{Answer:}} 
 \begin{itemize}
     \item $\nabla f(t) =-\frac{\langle CCb, Cb \rangle}{||Cb||}$, $\nabla^2f(t) = \frac{3}{||Cb||}\langle CCb, CCb\rangle - \frac{1}{||Cb||^3 }(\langle CCb, Cb \rangle)^2$, where $C = (A+tI_n)^{-1}$
-    \item $\nabla f = 2(xx^T -A)x$, $\nabla^2f = 6xx^T-2A$
+    \item $\nabla f = 2(xx^T -A)x$, $\nabla^2f = 2x^TxI + 4xx^T-2A$
 \end{itemize}
 
 
@@ -192,3 +192,4 @@ $$
 and it's trivial that: $\nabla_X f = \nabla_{\Lambda} f$
 
 \underline{\textbf{Answer:}} $\nabla_X f = \nabla_{\Lambda} f$
+
